@@ -1,0 +1,102 @@
+#app-wrapper {
+  /* max-width: 768px;  
+  margin: 0 auto; */
+  margin: 0 50px;
+  padding: 20px;
+}
+
+#app-title {
+  background: lightsteelblue;
+  padding: 10px;
+  text-align: center !important;
+  border-bottom: 1px solid #666;
+}
+
+#app-title > div {
+  /* max-width: 768px; 
+  margin: 0 auto;  */
+  margin: 0 50px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+#logout-button {
+  float: left;
+  position: relative;
+  top: 6px;
+  color: #336;
+}
+
+#company-name {
+  font-size: 1.5rem;
+}
+
+#app-wrapper > * {
+  direction: rtl;
+  text-align: right;
+}
+
+/* @media (min-width: 1200px) {
+  #app-wrapper {
+    border: 1px solid #aaa;
+    border-radius: 0 0 10px 10px;
+    border-top: 0;
+  }  
+} */
+
+::ng-deep .center {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/*This is needed for the menu to be shown*/
+::ng-deep .ng-trigger.ng-trigger-overlayAnimation.ng-tns-c1-0.ui-menu.ui-widget.ui-widget-content.ui-corner-all.ui-menu-dynamic.ui-shadow.ng-star-inserted {
+  display: block !important;
+}
+
+#menu-button {
+  float: left;
+  font-size: 27px;
+  color: #333;
+  border-radius: 50%;
+  height: 32px;
+  /* width: 42px; */
+  transition: 0.2s;
+}
+
+#menu-button.menu-shown {
+  background: rgba(0,0,0,0.1);
+  color: #555;
+}
+
+#menu-button > i {
+  vertical-align: text-top;
+}
+
+::ng-deep p-menu {
+  direction: rtl;
+  text-align: right;
+  padding-right: 15px;
+}
+
+#company-name {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+::ng-deep .rtl-elem .ui-menubar-custom {
+  float: left;
+}
+
+::ng-deep .ui-menubar {
+  padding-right: 50px; 
+  padding-left: 50px; 
+}
+
+::ng-deep .ui-menubar .ui-submenu-list .ui-menuitem-link .ui-submenu-icon {
+  left: 0;
+  right: unset;
+  transform: rotateZ(180deg);
+}
