@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { AppService } from '../app/app.service';
 
 import { AlertsService } from '@cavsys/zang/src/app/alerts.service';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { MenubarSub } from 'primeng/menubar';
+import { QuestionService } from '@cavsys/zang/src/app/dynamic-form/question.service';
+import { DynamicAppComponent } from '@cavsys/zang/src/app/dynamic-app/dynamic-app.component';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +16,14 @@ import { MenubarSub } from 'primeng/menubar';
 })
 export class AppComponent implements OnInit {
 
+  @ViewChild('app') app: DynamicAppComponent;
+
   hamburgerMenuItems: MenuItem[];
   mainMenuItems: MenuItem[] = new Array<MenuItem>(); // require('../assets/menu.json');
+  appUci: string;
+  appKey: string;
   
-  constructor(private service: AppService, private alertsService: AlertsService) {
+  constructor(private service: AppService, private alertsService: AlertsService) {    
     this.service.getMenu().then((data) => {
       this.setMenu(data);
     });
@@ -31,6 +37,20 @@ export class AppComponent implements OnInit {
     ];
 
     this.setRtlMenu();    
+
+    // QuestionService.unauthorizedResponse.subscribe(this.unauthorizedError);
+    QuestionService.unauthorizedResponse.subscribe((a) => { 
+      this.unauthorizedError(a); 
+    });
+  }
+
+  unauthorizedError(error: any) {
+    // this.alertsService.clear();
+    console.log('++++++   unauthorizedError    +++++++');
+    this.alertsService.alert('error', 'יש צורך להתחבר למערכת', 'מייד תועבר לדף ההתחברות');
+    // setTimeout(() => {
+    //   this.logout();
+    // }, 4000);
   }
 
   setMenu(menuData) {
@@ -42,11 +62,23 @@ export class AppComponent implements OnInit {
 
   setMenuItem(itemData) {
     const elem: any = { label: itemData.TXT };
+    // set child menu
     if (itemData.MENU) {
       elem.items = [];
       itemData.MENU.forEach((item) => {
         elem.items.push(this.setMenuItem(item));
       });
+    }
+    // run app on click
+    if (itemData.TYP === 'A') {
+      elem.command = () => {
+        this.appUci = itemData.UCI;
+        this.appKey = itemData.APM;
+        // currently, on the first click the app component does not exist.
+        if (this.app) {
+          this.app.initApp();
+        }
+      };
     }
     return elem;
   }

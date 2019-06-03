@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  dynamicFormBaseDevUrl: 'http://localhost:8081/'
+  dynamicFormBaseDevUrl: 'http://max.cav.local:8080/portal/dist/'
 };

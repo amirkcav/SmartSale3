@@ -100,3 +100,7 @@
   right: unset;
   transform: rotateZ(180deg);
 }
+
+::ng-deep .ui-datepicker-calendar .ui-state-default {
+  background: white;
+}
