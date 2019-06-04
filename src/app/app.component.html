@@ -14,8 +14,10 @@
 <div id="app-wrapper" class="rtl-elem"> 
   <!-- <dynamic-form [formKey]="'B'" [isRtl]="true"></dynamic-form> -->
 
-  <dynamic-app #app *ngIf="appUci && appKey" [appKey]="appKey" [appUci]="appUci" [appParams]="" [isRtl]="true"></dynamic-app>
-  
+  <!-- <dynamic-app #app *ngIf="appUci && appKey" [appKey]="appKey" [appUci]="appUci" [appParams]="" [isRtl]="true"></dynamic-app> -->
+  <!-- <app-wrapper [appKey]="appKey" [appUci]="appUci"></app-wrapper> -->
+  <router-outlet></router-outlet>
+
 </div>  
 
 <app-my-loader></app-my-loader>

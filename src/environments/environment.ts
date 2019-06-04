@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  dynamicFormBaseDevUrl: 'http://max.cav.local:8080/portal/dist/'
+  dynamicFormBaseDevUrl: 'http://max.cav.local:8080/portal/dist/',
+  usernamePassword: '_USERNAME=AAA&_PASSWORD=4562'
 };

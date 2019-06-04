@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+
 import { AppService } from '../app/app.service';
 
 import { AlertsService } from '@cavsys/zang/src/app/alerts.service';
@@ -7,6 +8,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 import { MenubarSub } from 'primeng/menubar';
 import { QuestionService } from '@cavsys/zang/src/app/dynamic-form/question.service';
 import { DynamicAppComponent } from '@cavsys/zang/src/app/dynamic-app/dynamic-app.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -23,13 +25,14 @@ export class AppComponent implements OnInit {
   appUci: string;
   appKey: string;
   
-  constructor(private service: AppService, private alertsService: AlertsService) {    
+  constructor(private service: AppService, private alertsService: AlertsService, private router: Router) {    
     this.service.getMenu().then((data) => {
       this.setMenu(data);
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+
     // the "hamburger" button menu.
     this.hamburgerMenuItems = [
       {label: 'התנתק', icon: 'fa fa-sign-out' /*, 'command': this.logout */ },
@@ -72,12 +75,14 @@ export class AppComponent implements OnInit {
     // run app on click
     if (itemData.TYP === 'A') {
       elem.command = () => {
-        this.appUci = itemData.UCI;
-        this.appKey = itemData.APM;
-        // currently, on the first click the app component does not exist.
-        if (this.app) {
-          this.app.initApp();
-        }
+        console.log(`/${itemData.UCI}/${itemData.APM}`);
+        this.router.navigateByUrl(`/${itemData.UCI}/${itemData.APM}`);
+        // this.appUci = itemData.UCI;
+        // this.appKey = itemData.APM;
+        // // currently, on the first click the app component does not exist.
+        // if (this.app) {
+        //   this.app.initApp();
+        // }
       };
     }
     return elem;
