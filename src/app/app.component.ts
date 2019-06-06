@@ -9,6 +9,7 @@ import { MenubarSub } from 'primeng/menubar';
 import { QuestionService } from '@cavsys/zang/src/app/dynamic-form/question.service';
 import { DynamicAppComponent } from '@cavsys/zang/src/app/dynamic-app/dynamic-app.component';
 import { Router } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit {
 
     // the "hamburger" button menu.
     this.hamburgerMenuItems = [
-      {label: 'התנתק', icon: 'fa fa-sign-out' /*, 'command': this.logout */ },
+      {label: 'התנתק', icon: 'fa fa-sign-out', 'command': this.logout },
       {label: 'מספר גירסה', icon: ''}
     ];
 
@@ -47,16 +48,21 @@ export class AppComponent implements OnInit {
     });
   }
 
+  logout() {
+    window.location.href = environment.dynamicFormBaseDevUrl;
+  }
+
   unauthorizedError(error: any) {
     // this.alertsService.clear();
     console.log('++++++   unauthorizedError    +++++++');
     this.alertsService.alert('error', 'יש צורך להתחבר למערכת', 'מייד תועבר לדף ההתחברות');
-    // setTimeout(() => {
-    //   this.logout();
-    // }, 4000);
   }
 
   setMenu(menuData) {
+    // if there is only one menu item except the favorites, set its children as parents.
+    if (menuData.length === 2) {
+      menuData = menuData[0].MENU.concat(menuData[1]);
+    }
     menuData.forEach(element => {
       const newElem = this.setMenuItem(element);
       this.mainMenuItems.push(newElem);
@@ -75,8 +81,12 @@ export class AppComponent implements OnInit {
     // run app on click
     if (itemData.TYP === 'A') {
       elem.command = () => {
-        console.log(`/${itemData.UCI}/${itemData.APM}`);
-        this.router.navigateByUrl(`/${itemData.UCI}/${itemData.APM}`);
+        let url = `/${itemData.UCI}/${itemData.APM}`;
+        if (itemData.wCY) {
+          url += `/${itemData.wCY}`;
+        }
+        console.log(url);
+        this.router.navigateByUrl(url);
         // this.appUci = itemData.UCI;
         // this.appKey = itemData.APM;
         // // currently, on the first click the app component does not exist.

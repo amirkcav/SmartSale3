@@ -13,6 +13,7 @@ export class AppWrapperComponent implements OnInit {
 
   appUci: string;
   appKey: string;
+  appWcy: string;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -21,11 +22,14 @@ export class AppWrapperComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.appUci = params.get('uci');
       this.appKey = params.get('apm');
-      // calling initApp after the app data is updated.
+      this.appWcy = params.get('wcy');
+      if (this.app) {
+        // changing the appData to null, so the app would be refreshed.
+        this.app.appData = null;
+        this.app.headerFormSubmitted = false;
+      }
       setTimeout(() => {
-        if (this.app) {
-          this.app.initApp();
-        }
+        this.app.initApp();
       });
     });
 

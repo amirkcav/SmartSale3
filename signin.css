@@ -1,0 +1,108 @@
+body {
+  background-color: white;
+} 
+
+.form-signin {
+  max-width: 550px;
+  padding: 75px 150px;
+  margin: 0 auto;
+  margin-top: 150px;
+  /* background: white; */
+  text-align: right;
+  
+  background: #eef1f4;
+  box-shadow: #aaa 0 0 2px;
+  border: 1px solid #999;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.session-signin {
+  position: absolute;
+  bottom: 5px;
+  width: 300px;
+  left: 50%;
+  margin-left: -150px;
+  text-align: center;
+  color: lightgray;
+}
+
+
+/* NEW */
+:root {
+  --base-width: 1024px;
+}
+
+#app-title {
+  background: #eef1f4;
+  color: white;
+  padding: 10px;
+  text-align: center !important;
+  border-bottom: 1px solid #666;
+}
+
+#app-title > div {
+  width: 550px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0 auto;
+}
+
+#app-title img {
+  float: right;
+  height: 40px;
+}
+
+.alert { 
+  text-align: right;
+  /* margin: 50px 100px; */
+  position: absolute;
+  width: 80%;
+  margin: 50px 10%;
+}
+
+form input {
+  direction: ltr;
+}
+
+@media (max-width: 768px) {
+
+  .form-signin {
+    max-width: 100%;
+    margin: 20px;
+    padding: 50px 30px;
+  }
+
+  .alert {
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+
+}

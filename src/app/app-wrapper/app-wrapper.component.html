@@ -1,8 +1,2 @@
-<p>
-  uci: {{ appUci }}
-</p>
-<p>
-  key: {{ appKey }}
-</p>
 
-<dynamic-app #app *ngIf="appUci && appKey" [appKey]="appKey" [appUci]="appUci" [appParams]="" [isRtl]="true"></dynamic-app>
+<dynamic-app #app *ngIf="appUci && appKey" [appKey]="appKey" [appUci]="appUci" [appWcy]="appWcy" [appParams]="" [isRtl]="true"></dynamic-app>

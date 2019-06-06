@@ -11,7 +11,8 @@ import { DynamicFormModule } from '@cavsys/zang/public_api';
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: ':uci/:apm', component: AppWrapperComponent }
+  { path: ':uci/:apm', component: AppWrapperComponent },
+  { path: ':uci/:apm/:wcy', component: AppWrapperComponent }
 ];
 
 @NgModule({
