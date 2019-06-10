@@ -53,9 +53,10 @@ export class AppComponent implements OnInit {
   }
 
   unauthorizedError(error: any) {
-    // this.alertsService.clear();
-    console.log('++++++   unauthorizedError    +++++++');
     this.alertsService.alert('error', 'יש צורך להתחבר למערכת', 'מייד תועבר לדף ההתחברות');
+    setTimeout(() => {
+      this.logout();
+    }, 1500);
   }
 
   setMenu(menuData) {
