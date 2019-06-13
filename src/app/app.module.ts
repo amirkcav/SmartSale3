@@ -10,9 +10,11 @@ import { MenubarModule } from 'primeng/menubar';
 import { DynamicFormModule } from '@cavsys/zang/public_api';
 import { RouterModule, Routes } from '@angular/router';
 
+import {CanDeactivateGuard} from './can-deactivate.guard';
+
 const appRoutes: Routes = [
-  { path: ':uci/:apm', component: AppWrapperComponent },
-  { path: ':uci/:apm/:wcy', component: AppWrapperComponent }
+  { path: ':uci/:apm', component: AppWrapperComponent, canDeactivate: [CanDeactivateGuard] },
+  { path: ':uci/:apm/:wcy', component: AppWrapperComponent, canDeactivate: [CanDeactivateGuard] }
 ];
 
 @NgModule({
@@ -27,7 +29,7 @@ const appRoutes: Routes = [
     MenubarModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
