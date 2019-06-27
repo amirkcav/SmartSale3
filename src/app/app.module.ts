@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     DynamicFormModule,
     MenuModule,
     MenubarModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, { useHash: true })
   ],
   providers: [CanDeactivateGuard],
   bootstrap: [AppComponent]
