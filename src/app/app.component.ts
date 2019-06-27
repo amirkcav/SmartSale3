@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   mainMenuItems: MenuItem[] = new Array<MenuItem>(); // require('../assets/menu.json');
   appUci: string;
   appKey: string;
+  job: number;
   
   constructor(private service: AppService, private alertsService: AlertsService, private router: Router) {    
     this.service.getMenu().then((data) => {
@@ -45,6 +46,19 @@ export class AppComponent implements OnInit {
     // QuestionService.unauthorizedResponse.subscribe(this.unauthorizedError);
     QuestionService.unauthorizedResponse.subscribe((a) => { 
       this.unauthorizedError(a); 
+    });
+
+    this.service.getSessionInfo().then((res) => {
+      this.job = res['data']['sessionId'];
+    })
+    .catch((err) => {
+      console.log(err.message);
+      if (err.status === 403) {
+        this.unauthorizedError(err);
+      }
+      else {
+        this.alertsService.alert('error', 'אירעה שגיאה', err.message);
+      }
     });
   }
 
@@ -101,30 +115,30 @@ export class AppComponent implements OnInit {
 
   setRtlMenu() {
     MenubarSub.prototype.onItemMouseEnter = function(event, item, menuitem) {
-      const abc: any = this; 
-      if (abc.autoDisplay || (!abc.autoDisplay && abc.root && abc.menuHoverActive)) {
+      const thisHolder: any = this; 
+      if (thisHolder.autoDisplay || (!thisHolder.autoDisplay && thisHolder.root && thisHolder.menuHoverActive)) {
         if (menuitem.disabled) {
             return;
         }
-        if (abc.hideTimeout) {
-            clearTimeout(abc.hideTimeout);
-            abc.hideTimeout = null;
+        if (thisHolder.hideTimeout) {
+            clearTimeout(thisHolder.hideTimeout);
+            thisHolder.hideTimeout = null;
         }
-        abc.activeItem = abc.activeItem ? (abc.activeItem.isEqualNode(item) ? null : item) : item;
+        thisHolder.activeItem = thisHolder.activeItem ? (thisHolder.activeItem.isEqualNode(item) ? null : item) : item;
         const nextElement = item.children[0].nextElementSibling;
         if (nextElement) {
             const sublist = nextElement.children[0];
             sublist['style'].zIndex = String(1000 /*++domhandler_1.DomHandler.zindex*/);
-            if (abc.root) {
-                sublist['style'].top = abc.domHandler.getOuterHeight(item.children[0]) + 'px';
+            if (thisHolder.root) {
+                sublist['style'].top = thisHolder.domHandler.getOuterHeight(item.children[0]) + 'px';
                 sublist['style'].right = '0px';
             }
             else {
                 sublist['style'].top = '0px';
-                sublist['style'].right = abc.domHandler.getOuterWidth(item.children[0]) + 'px';
+                sublist['style'].right = thisHolder.domHandler.getOuterWidth(item.children[0]) + 'px';
             }
         }
-        abc.activeMenu = abc.activeMenu ? (abc.activeMenu.isEqualNode(item) ? null : item) : item;
+        thisHolder.activeMenu = thisHolder.activeMenu ? (thisHolder.activeMenu.isEqualNode(item) ? null : item) : item;
       }
     };
   }
