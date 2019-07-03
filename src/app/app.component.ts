@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, isDevMode } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 import { AppService } from '../app/app.service';
@@ -47,19 +47,20 @@ export class AppComponent implements OnInit {
     QuestionService.unauthorizedResponse.subscribe((a) => { 
       this.unauthorizedError(a); 
     });
-
-    this.service.getSessionInfo().then((res) => {
-      this.job = res['data']['sessionId'];
-    })
-    .catch((err) => {
-      console.log(err.message);
-      if (err.status === 403) {
-        this.unauthorizedError(err);
-      }
-      else {
-        this.alertsService.alert('error', 'אירעה שגיאה', err.message);
-      }
-    });
+    if (!isDevMode()) {
+      this.service.getSessionInfo().then((res) => {
+        this.job = res['data']['sessionId'];
+      })
+      .catch((err) => {
+        console.log(err.message);
+        if (err.status === 403) {
+          this.unauthorizedError(err);
+        }
+        else {
+          this.alertsService.alert('error', 'אירעה שגיאה', err.message);
+        }
+      });
+    }
   }
 
   logout() {
@@ -79,6 +80,10 @@ export class AppComponent implements OnInit {
       menuData = menuData[0].MENU.concat(menuData[1]);
     }
     menuData.forEach(element => {
+      // if there's only one company, skip companys level
+      if (element.MENU.length === 1) {
+        element.MENU = element.MENU[0].MENU;
+      }
       const newElem = this.setMenuItem(element);
       this.mainMenuItems.push(newElem);
     });
