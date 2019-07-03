@@ -75,15 +75,11 @@ export class AppComponent implements OnInit {
   }
 
   setMenu(menuData) {
-    // if there is only one menu item except the favorites, set its children as parents.
-    if (menuData.length === 2) {
-      menuData = menuData[0].MENU.concat(menuData[1]);
+    // if there is only one menu item (system) except the favorites, and it has only one company, skip the system and the company.
+    if (menuData.length === 2 && menuData[0].MENU.length === 1) {
+      menuData = menuData[0].MENU[0].MENU.concat(menuData[1]);
     }
     menuData.forEach(element => {
-      // if there's only one company, skip companys level
-      if (element.MENU.length === 1) {
-        element.MENU = element.MENU[0].MENU;
-      }
       const newElem = this.setMenuItem(element);
       this.mainMenuItems.push(newElem);
     });
