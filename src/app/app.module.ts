@@ -6,6 +6,8 @@ import { environment } from '../environments/environment';
 
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
+import { SidebarModule } from 'primeng/sidebar';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 import { DynamicFormModule } from '@cavsys/zang/public_api';
 import { RouterModule, Routes } from '@angular/router';
@@ -27,6 +29,8 @@ const appRoutes: Routes = [
     DynamicFormModule,
     MenuModule,
     MenubarModule,
+    SidebarModule,
+    PanelMenuModule,
     RouterModule.forRoot(appRoutes, { useHash: true })
   ],
   providers: [CanDeactivateGuard],

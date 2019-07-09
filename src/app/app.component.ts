@@ -26,8 +26,12 @@ export class AppComponent implements OnInit {
   appUci: string;
   appKey: string;
   job: number;
-  
+  isTouchDevice: boolean;
+  displayMenu: boolean;
+
   constructor(private service: AppService, private alertsService: AlertsService, private router: Router) {    
+    // no hover on touch device. working with click.
+    this.isTouchDevice = this.checkIsTouchDevice();
     this.service.getMenu().then((data) => {
       this.setMenu(data);
     });
@@ -103,12 +107,10 @@ export class AppComponent implements OnInit {
         }
         console.log(url);
         this.router.navigateByUrl(url);
-        // this.appUci = itemData.UCI;
-        // this.appKey = itemData.APM;
-        // // currently, on the first click the app component does not exist.
-        // if (this.app) {
-        //   this.app.initApp();
-        // }
+
+        setTimeout(() => {
+          this.displayMenu = false;
+        }, 200);
       };
     }
     return elem;
@@ -142,6 +144,41 @@ export class AppComponent implements OnInit {
         thisHolder.activeMenu = thisHolder.activeMenu ? (thisHolder.activeMenu.isEqualNode(item) ? null : item) : item;
       }
     };
+
+    MenubarSub.prototype.onItemMenuClick = function (event, item, menuitem) {
+      if (!this.autoDisplay) {
+          if (menuitem.disabled) {
+              return;
+          }
+          this.activeItem = this.activeMenu ? (this.activeMenu.isEqualNode(item) ? null : item) : item;
+          const nextElement = item.children[0].nextElementSibling;
+          if (nextElement) {
+            const sublist = nextElement.children[0];
+              if (this.autoZIndex) {
+                  sublist['style'].zIndex = String(this.baseZIndex + (1001 /*++domhandler_1.DomHandler.zindex*/));
+              }
+              if (this.root) {
+                  sublist['style'].top = this.domHandler.getOuterHeight(item.children[0]) + 'px';
+                  sublist['style'].right = '0px';
+              }
+              else {
+                  sublist['style'].top = '0px';
+                  sublist['style'].right = this.domHandler.getOuterWidth(item.children[0]) + 'px';
+              }
+          }
+          this.menuClick = true;
+          this.menuHoverActive = this.activeMenu ? (!this.activeMenu.isEqualNode(item)) : true;
+          this.activeMenu = this.activeMenu ? (this.activeMenu.isEqualNode(item) ? null : item) : item;
+          this.bindEventListener();
+      }
+  };
   }
+
+  checkIsTouchDevice() {
+    return (('ontouchstart' in window)
+         || (navigator['MaxTouchPoints'] > 0)
+         || (navigator['msMaxTouchPoints'] > 0));
+  }
+   
 
 }

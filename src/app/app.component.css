@@ -5,6 +5,44 @@
   padding: 20px;
 }
 
+@media(max-width: 650px) { 
+
+  #app-wrapper {
+    margin: 0 25px;
+  }  
+
+  #menu-button {
+    margin: 5px 10px;
+  }
+
+  ::ng-deep p-sidebar .ui-sidebar .ui-sidebar-close {
+    color: #333;
+  }
+
+  ::ng-deep p-sidebar .ui-sidebar.ui-sidebar-top {
+    height: auto;
+  }
+
+  ::ng-deep p-panelmenu .ui-state-default, 
+  ::ng-deep p-panelmenu .ui-panelmenu .ui-panelmenu-header:not(.ui-state-active):hover, 
+  ::ng-deep p-panelmenu .ui-panelmenu-content {
+    background: white;
+  }
+
+  ::ng-deep p-panelmenu .ui-panelmenu-header-link .ui-panelmenu-icon:not(.fa-caret-down) {
+    transform: rotateZ(180deg);
+  }
+
+  ::ng-deep p-panelmenu .ui-submenu-list .ui-menuitem .ui-menuitem-text {
+    padding-right: 20px; 
+  }
+
+  ::ng-deep p-panelmenu .ui-panelmenu {
+    margin-top: 30px;
+  }
+
+}
+
 #app-title {
   background: lightsteelblue;
   padding: 10px;
