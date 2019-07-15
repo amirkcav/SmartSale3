@@ -9,6 +9,7 @@
 
   #app-wrapper {
     margin: 0 25px;
+    padding: 20px 0;
   }  
 
   #menu-button {
@@ -39,6 +40,16 @@
 
   ::ng-deep p-panelmenu .ui-panelmenu {
     margin-top: 30px;
+    margin-bottom: 8px;
+  }
+
+  ::ng-deep p-panelmenu .ui-panelmenu .ui-menuitem-icon {
+    margin-right: 0;
+    margin-left: 2px;
+  }
+
+  ::ng-deep p-panelmenu .menu-separator > .ui-panelmenu-header-link {
+    padding: 1px 0 0 0;
   }
 
 }

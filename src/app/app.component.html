@@ -1,6 +1,6 @@
 <!-- <div id="app-title" class="clearfix">
   <div> -->
-    <p-menubar *ngIf="!isTouchDevice" [model]="mainMenuItems" ><!--[autoDisplay]="isTouchDevice"-->
+    <p-menubar *ngIf="!isMobile" [model]="mainMenuItems" [autoDisplay]="!isTouchDevice">
 
       <p-menu #menu [popup]="true" [model]="hamburgerMenuItems"></p-menu>
       <a href="javascript:;" id="menu-button" (click)="menu.toggle($event)" [ngClass]="{'menu-shown': menu.visible}">
@@ -9,12 +9,12 @@
 
     </p-menubar>    
 
-    <ng-container *ngIf="isTouchDevice">
+    <ng-container *ngIf="isMobile">
       <a href="javascript:;" id="menu-button" (click)="displayMenu = true">
         <i class="fa fa-bars"></i>
       </a>
-      <p-sidebar [(visible)]="displayMenu" position="top">
-          <p-panelMenu [model]="mainMenuItems" [multiple]="false"></p-panelMenu>
+      <p-sidebar [(visible)]="displayMenu" position="top" (onHide)="onSidebarHide($event)">
+          <p-panelMenu #panelMenu [model]="mobileMenu" [multiple]="false"></p-panelMenu>
       </p-sidebar>
     </ng-container>
   <!-- </div>

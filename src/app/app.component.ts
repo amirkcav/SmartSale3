@@ -10,6 +10,7 @@ import { QuestionService } from '@cavsys/zang/src/app/dynamic-form/question.serv
 import { DynamicAppComponent } from '@cavsys/zang/src/app/dynamic-app/dynamic-app.component';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
+import { PanelMenu } from 'primeng/panelmenu';
 
 @Component({
   selector: 'app-root',
@@ -20,20 +21,25 @@ import { environment } from '../environments/environment';
 export class AppComponent implements OnInit {
 
   @ViewChild('app') app: DynamicAppComponent;
+  @ViewChild('panelMenu') panelMenu: PanelMenu;
 
   hamburgerMenuItems: MenuItem[];
   mainMenuItems: MenuItem[] = new Array<MenuItem>(); // require('../assets/menu.json');
+  mobileMenu: MenuItem[];
   appUci: string;
   appKey: string;
   job: number;
   isTouchDevice: boolean;
+  isMobile: boolean;
   displayMenu: boolean;
 
   constructor(private service: AppService, private alertsService: AlertsService, private router: Router) {    
     // no hover on touch device. working with click.
     this.isTouchDevice = this.checkIsTouchDevice();
+    this.isMobile = this.checkIsMobile();
     this.service.getMenu().then((data) => {
       this.setMenu(data);
+      this.mobileMenu = this.mainMenuItems.concat([{separator: true, styleClass: 'menu-separator'}]).concat(this.hamburgerMenuItems);
     });
   }
 
@@ -179,6 +185,13 @@ export class AppComponent implements OnInit {
          || (navigator['MaxTouchPoints'] > 0)
          || (navigator['msMaxTouchPoints'] > 0));
   }
-   
+
+  checkIsMobile() {
+    return window.innerWidth <= 650;
+  }
+
+  onSidebarHide(event: any) {
+    this.panelMenu.collapseAll();
+  }
 
 }
