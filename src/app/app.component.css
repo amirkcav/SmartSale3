@@ -153,3 +153,14 @@
 ::ng-deep .ui-datepicker-calendar .ui-state-default {
   background: white;
 }
+
+p-menubar {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+}
+
+#app-wrapper {
+  margin-top: 50px;
+}
