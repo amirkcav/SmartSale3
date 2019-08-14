@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   dynamicFormBaseDevUrl: 'http://max:8080/smartsale/dist/',
-  menuUrl: 'http://max:8080/zjBoard/mcall?_ROUTINE=%25JMUJSON&_NS=CAV&_LABEL=ZZ',
+  menuUrl: '../mcall?_ROUTINE=%25JMUJSON&_NS=CAV&_LABEL=ZZ',
   sessionInfoUrl: '../mcall?_NS=CAV&_ROUTINE=%25ZCAVWEB&_LABEL=SESSIONINFO',
   usernamePassword: '_USERNAME=AAA&_PASSWORD=4562'
 };
